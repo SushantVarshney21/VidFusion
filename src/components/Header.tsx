@@ -13,22 +13,105 @@ import {
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/FirebaseConfig";
 import { changeTheme, setUser } from "../app/slices/AuthSlice";
-import { getCreateMeetingBreadCrumbs } from "../utils/breadCrumbs";
 
-const Header = () => {
+const Header = () => { 
   const navigate = useNavigate();
   const location = useLocation();
   const username = localStorage.getItem("name");
-  const [breadcrumbs, setBreadCrumbs] = useState([{ text: "Dashboard" }]);
+  const [breadcrumbs, setBreadCrumbs] = useState([
+    {
+      text: "Dashboard",
+      href: "#",
+      onclick: () => {
+        navigate("/");
+      },
+    },
+  ]);
   const [isResponsive, setIsResponsive] = useState(false);
   const dispatch = useDispatch();
 
-  // useEffect(()=>{
-  //   const {pathname}= location;
-  //  if (pathname === "/create")
-  //   setBreadCrumbs(getCreateMeetingBreadCrumbs(navigate));
-
-  // },[location,navigate])
+  useEffect(() => {
+    const { pathname } = location;
+    if (pathname === "/create") {
+      setBreadCrumbs([
+        {
+          text: "Dashboard",
+          href: "/",
+          onclick: () => {
+            navigate("/");
+          },
+        },
+        {
+          text: "Create Meeting",
+          href: "",
+          onclick: () => {
+            navigate("");
+          },
+        },
+      ]);
+    }
+    if (pathname === "/create1on1") {
+      setBreadCrumbs([
+        {
+          text: "Dashboard",
+          href: "/",
+          onclick: () => {
+            navigate("/");
+          },
+        },
+        {
+          text: "Create Meeting",
+          href: "/create",
+          onclick: () => {
+            navigate("/create");
+          },
+        },
+        {
+          text: "Create 1 to 1 meeting",
+          href: "",
+          onclick: () => {
+            navigate("");
+          },
+        },
+      ]);
+    }
+    if (pathname === "/mymeeting") {
+      setBreadCrumbs([
+        {
+          text: "Dashboard",
+          href: "/",
+          onclick: () => {
+            navigate("/");
+          },
+        },
+        {
+          text: "My Meetings",
+          href: "",
+          onclick: () => {
+            navigate("");
+          },
+        },
+      ]);
+    }
+    if (pathname === "/meeting") {
+      setBreadCrumbs([
+        {
+          text: "Dashboard",
+          href: "/",
+          onclick: () => {
+            navigate("/");
+          },
+        },
+        {
+          text: "Meeting",
+          href: "",
+          onclick: () => {
+            navigate("");
+          },
+        },
+      ]);
+    }
+  }, [location, navigate]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
@@ -144,60 +227,60 @@ const Header = () => {
       ],
     },
     {
-        items: [
-          <>
-            {username ? (
-              <EuiText>
-                <h3>
-                  <EuiTextColor color="white">Hello,</EuiTextColor>
-                  <EuiTextColor color="#0b5cff"> {username}</EuiTextColor>
-                </h3>
-              </EuiText>
-            ) : null}
-          </>,
-        ],
-      },
-      {
-        items: [
-          <EuiFlexGroup
-            justifyContent="center"
-            alignItems="center"
-            direction="row"
-            style={{ gap: "2vw" }}
-          >
-            <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
-              {localStorage.getItem("zoom360-theme") == "dark" ? (
-                <EuiButtonIcon
-                  iconType="sun"
-                  onClick={invertTheme}
-                  display="fill"
-                  size="s"
-                  color="warning"
-                  aria-label="invert-theme-button"
-                />
-              ) : (
-                <EuiButtonIcon
-                  iconType="moon"
-                  onClick={invertTheme}
-                  display="fill"
-                  size="s"
-                  style={{ color: "black", backgroundColor: "white" }}
-                  aria-label="invert-theme-button"
-                />
-              )}
-            </EuiFlexItem>
-            <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
+      items: [
+        <>
+          {username ? (
+            <EuiText>
+              <h3>
+                <EuiTextColor color="white">Hello,</EuiTextColor>
+                <EuiTextColor color="#0b5cff"> {username}</EuiTextColor>
+              </h3>
+            </EuiText>
+          ) : null}
+        </>,
+      ],
+    },
+    {
+      items: [
+        <EuiFlexGroup
+          justifyContent="center"
+          alignItems="center"
+          direction="row"
+          style={{ gap: "2vw" }}
+        >
+          <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
+            {localStorage.getItem("zoom360-theme") == "dark" ? (
               <EuiButtonIcon
-                iconType="lock"
-                onClick={logout}
+                iconType="sun"
+                onClick={invertTheme}
                 display="fill"
                 size="s"
-                aria-label="logout-button"
+                color="warning"
+                aria-label="invert-theme-button"
               />
-            </EuiFlexItem>
-          </EuiFlexGroup>,
-        ],
-      },
+            ) : (
+              <EuiButtonIcon
+                iconType="moon"
+                onClick={invertTheme}
+                display="fill"
+                size="s"
+                style={{ color: "black", backgroundColor: "white" }}
+                aria-label="invert-theme-button"
+              />
+            )}
+          </EuiFlexItem>
+          <EuiFlexItem grow={false} style={{ flexBasis: "fit-content" }}>
+            <EuiButtonIcon
+              iconType="lock"
+              onClick={logout}
+              display="fill"
+              size="s"
+              aria-label="logout-button"
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>,
+      ],
+    },
   ];
 
   useEffect(() => {

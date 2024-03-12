@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import { useDispatch } from "react-redux";
 import { useAppSelector } from "./app/hooks";
 import CreateMeeting from "./pages/CreateMeeting";
+import OneOnOneMeeting from "./pages/OneOnOneMeeting";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/create" element={<CreateMeeting/>} />
+          <Route path="/create1on1" element={<OneOnOneMeeting/>} />
           <Route path="/" element={<Dashboard />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>
