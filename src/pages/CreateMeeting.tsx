@@ -4,8 +4,10 @@ import { EuiCard, EuiFlexGroup, EuiFlexItem, EuiImage } from '@elastic/eui'
 import { useNavigate } from 'react-router-dom'
 import meeting1 from "../assets/meeting1.png";
 import meeting2 from "../assets/meeting2.png";
+import useAuth from '../hooks/useAuth';
 
 const CreateMeeting = () => {
+  useAuth()
     const navigate = useNavigate()
   return (
     <div  style={{

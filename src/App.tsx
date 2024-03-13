@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { EuiProvider, EuiThemeColorMode, EuiThemeProvider } from "@elastic/eui";
-import "@elastic/eui/dist/eui_theme_light.css";
-import "@elastic/eui/dist/eui_theme_dark.css";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -9,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "./app/hooks";
 import CreateMeeting from "./pages/CreateMeeting";
 import OneOnOneMeeting from "./pages/OneOnOneMeeting";
+import ThemeSelector from "./components/ThemeSelector";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -39,7 +38,8 @@ const App = () => {
     },
   };
   return (
-    <EuiProvider colorMode={theme}>
+    <ThemeSelector>
+      <EuiProvider colorMode={theme}>
       <EuiThemeProvider modify={overrides}>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -50,6 +50,7 @@ const App = () => {
         </Routes>
       </EuiThemeProvider>
     </EuiProvider>
+    </ThemeSelector>
   );
 };
 

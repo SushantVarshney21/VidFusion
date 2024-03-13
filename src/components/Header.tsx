@@ -113,10 +113,16 @@ const Header = () => {
     }
   }, [location, navigate]);
 
+
+
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
-      const serializedUser = JSON.stringify(currentUser?.displayName);
-      localStorage.setItem("name", serializedUser);
+      // let uid = 'uid';
+      const serializedUserName = JSON.stringify(currentUser?.displayName);
+      localStorage.setItem("name", serializedUserName);
+      const serializedUserUid =JSON.stringify(currentUser?.uid);
+      localStorage.setItem('uid', serializedUserUid);     
       if (!currentUser) {
         navigate("/login");
       } else {
@@ -135,9 +141,8 @@ const Header = () => {
   const logout = () => {
     signOut(firebaseAuth);
     localStorage.removeItem("name");
-    if (localStorage.getItem("zoom360-theme") == "light") {
-      localStorage.removeItem("zoom360-theme");
-    }
+    localStorage.removeItem("uid");
+ 
   };
 
   const invertTheme = () => {
@@ -146,6 +151,7 @@ const Header = () => {
     dispatch(changeTheme({ isDarkTheme: !isDarkTheme }));
     console.log(changeTheme);
   };
+
   const section = [
     {
       items: [
@@ -214,6 +220,7 @@ const Header = () => {
       ],
     },
   ];
+
   const responsiveSection = [
     {
       items: [
