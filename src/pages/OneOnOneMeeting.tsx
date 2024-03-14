@@ -18,7 +18,7 @@ const OneOnOneMeeting = () => {
     useAuth();
 
     const [users]= useFetchUsers()
-    const uid= localStorage.getItem("uid")
+    const uid= useAppSelector((zoom360)=>zoom360.auth.userInfo?.uid)
     const [meetingName,setMeetingName] = useState("")
     const [selectedUsers, setSelectedUsers] = useState<Array<UserType>>([])
     const [startDate, setStartDate] = useState(moment())

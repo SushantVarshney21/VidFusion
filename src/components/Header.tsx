@@ -13,11 +13,13 @@ import {
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { firebaseAuth } from "../utils/FirebaseConfig";
 import { changeTheme, setUser } from "../app/slices/AuthSlice";
+import useAuth from "../hooks/useAuth";
 
 const Header = () => { 
+  useAuth()
   const navigate = useNavigate();
   const location = useLocation();
-  const username = localStorage.getItem("name");
+  const username = useAppSelector((zoom360)=>zoom360.auth.userInfo?.name); 
   const [breadcrumbs, setBreadCrumbs] = useState([
     {
       text: "Dashboard",
@@ -116,25 +118,7 @@ const Header = () => {
 
 
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(firebaseAuth, (currentUser) => {
-      // let uid = 'uid';
-      const serializedUserName = JSON.stringify(currentUser?.displayName);
-      localStorage.setItem("name", serializedUserName);
-      const serializedUserUid =JSON.stringify(currentUser?.uid);
-      localStorage.setItem('uid', serializedUserUid);     
-      if (!currentUser) {
-        navigate("/login");
-      } else {
-        setUser({
-          uid: currentUser.uid,
-          name: currentUser.displayName,
-          email: currentUser.email,
-        });
-      }
-    });
-    return () => unsubscribe();
-  }, [dispatch, navigate]);
+ 
 
   const isDarkTheme = useAppSelector((zoom360) => zoom360.auth.isDarkTheme);
 

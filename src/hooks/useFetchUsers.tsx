@@ -7,7 +7,7 @@ import { UserType } from '../utils/Types';
 
 export default function useFetchUsers() {
     const [users, setUsers] = useState<Array<UserType>>([]);
-    const uid = localStorage.getItem("uid")  
+    const uid = useAppSelector((zoom360)=>zoom360.auth.userInfo?.uid)
     useEffect(() => {
       if (uid) {
         const getUser = async () => {
