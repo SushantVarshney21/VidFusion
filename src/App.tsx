@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { EuiProvider, EuiThemeColorMode, EuiThemeProvider } from "@elastic/eui";
+import { EuiGlobalToastList, EuiProvider, EuiThemeColorMode, EuiThemeProvider } from "@elastic/eui";
 import { Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -8,8 +8,12 @@ import { useAppSelector } from "./app/hooks";
 import CreateMeeting from "./pages/CreateMeeting";
 import OneOnOneMeeting from "./pages/OneOnOneMeeting";
 import ThemeSelector from "./components/ThemeSelector";
+import { setToasts } from "./app/slices/MeetingSlice";
+import VideoConference from "./pages/VideoConference";
+import MyMeetings from "./pages/MyMeetings";
 
 const App = () => {
+  const toasts = useAppSelector((zoom360)=>zoom360.meetings.toasts)
   const dispatch = useDispatch();
   const isDarkTheme = useAppSelector((zoom360) => zoom360.auth.isDarkTheme);
   const [theme, setTheme] = useState<EuiThemeColorMode>("dark");
@@ -37,6 +41,15 @@ const App = () => {
       DARK: { primary: "#0b5cff" },
     },
   };
+
+  const removeToast = (removedToast: { id: string }) => {
+    dispatch(
+      setToasts(
+        toasts.filter((toast: { id: string }) => toast.id !== removedToast.id)
+      )
+    );
+  };
+
   return (
     <ThemeSelector>
       <EuiProvider colorMode={theme}>
@@ -45,9 +58,17 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/create" element={<CreateMeeting/>} />
           <Route path="/create1on1" element={<OneOnOneMeeting/>} />
+          <Route path="/videoconference" element={<VideoConference/>} />
+          <Route path="/mymeeting" element={<MyMeetings/>} />
           <Route path="/" element={<Dashboard />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>
+        <EuiGlobalToastList
+            toasts={toasts}
+            dismissToast={removeToast}
+            toastLifeTimeMs={4000}
+          />
+
       </EuiThemeProvider>
     </EuiProvider>
     </ThemeSelector>

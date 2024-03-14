@@ -13,11 +13,14 @@ import { generateMeetingId } from '../utils/generateMeetingId'
 import { addDoc } from 'firebase/firestore'
 import { meetingref } from '../utils/FirebaseConfig'
 import { useAppSelector } from '../app/hooks'
+import { useNavigate } from 'react-router-dom'
+import usetoast from '../hooks/useToast'
 
 const OneOnOneMeeting = () => {
     useAuth();
-
-    const [users]= useFetchUsers()
+    const [createToast] = usetoast();
+    const navigate = useNavigate();
+    const [users]= useFetchUsers();
     const uid= useAppSelector((zoom360)=>zoom360.auth.userInfo?.uid)
     const [meetingName,setMeetingName] = useState("")
     const [selectedUsers, setSelectedUsers] = useState<Array<UserType>>([])
@@ -72,6 +75,11 @@ const OneOnOneMeeting = () => {
           maxUsers: 1,
           status: true,
         });
+        createToast({
+          title: "One on One Meeting Created Successfully",
+          type: "success",
+        });
+        navigate("/")
       }
     }
 

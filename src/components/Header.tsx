@@ -69,7 +69,32 @@ const Header = () => {
           },
         },
         {
-          text: "Create 1 to 1 meeting",
+          text: "Create 1 on 1 meeting",
+          href: "",
+          onclick: () => {
+            navigate("");
+          },
+        },
+      ]);
+    }
+    if (pathname === "/videoconference") {
+      setBreadCrumbs([
+        {
+          text: "Dashboard",
+          href: "/",
+          onclick: () => {
+            navigate("/");
+          },
+        },
+        {
+          text: "Create Meeting",
+          href: "/create",
+          onclick: () => {
+            navigate("/create");
+          },
+        },
+        {
+          text: "Create video conference",
           href: "",
           onclick: () => {
             navigate("");
