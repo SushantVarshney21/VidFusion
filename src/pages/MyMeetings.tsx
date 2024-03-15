@@ -12,7 +12,7 @@ import {
   import React, { useEffect, useState, useCallback } from "react";
   import { Link } from "react-router-dom";
   import { useAppSelector } from "../app/hooks";
-//   import EditFlyout from "../components/EditFlyout";
+  import EditFlyout from "../components/EditFlyout";
   import Header from "../components/Header";
   import useAuth from "../hooks/useAuth";
   import { meetingref } from "../utils/FirebaseConfig";
@@ -20,7 +20,7 @@ import {
   
   export default function MyMeetings() {
     useAuth();
-    const userInfo = useAppSelector((zoom) => zoom.auth.userInfo);
+    const userInfo = useAppSelector(((zoom360)=>zoom360.auth.userInfo));
     const [meetings, setMeetings] = useState<Array<MeetingType>>([]);
     const [showEditFlyout, setShowEditFlyout] = useState(false);
     const [editMeeting, setEditMeeting] = useState<MeetingType>();
@@ -154,9 +154,9 @@ import {
             </EuiPanel>
           </EuiFlexItem>
         </EuiFlexGroup>
-        {/* {showEditFlyout && (
-        //   <EditFlyout closeFlyout={closeEditFlyout} meeting={editMeeting!} />
-        )} */}
+        {showEditFlyout && (
+          <EditFlyout closeFlyout={closeEditFlyout} meeting={editMeeting!} />
+        )}
       </div>
     );
   }

@@ -4,8 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 function CreateMeetingButtons({
   createMeeting,
+  isEdit,
+  closeFlyout
 }: {
   createMeeting: () => void;
+  isEdit?:boolean
+  closeFlyout?: ()=>{}
 }) {
   const navigate = useNavigate();
   return (
@@ -13,7 +17,7 @@ function CreateMeetingButtons({
       <EuiFlexItem grow={false}>
         <EuiButton
           color="danger"
-          onClick={() => navigate("/")}
+          onClick={() => (isEdit ? closeFlyout!() : navigate("/"))}
           fill
         >
           Cancel
@@ -21,7 +25,7 @@ function CreateMeetingButtons({
       </EuiFlexItem>
       <EuiFlexItem grow={false}>
         <EuiButton type="submit" onClick={createMeeting} fill>
-          {/* {isEdit ? "Edit Meeting" : "Create Meeting"} */}Submit
+          {isEdit ? "Edit Meeting" : "Create Meeting"}Submit
         </EuiButton>
       </EuiFlexItem>
     </EuiFlexGroup>
