@@ -7,54 +7,50 @@ import {
     EuiFlexItem,
     EuiPanel,
   } from "@elastic/eui";
-  import { getDocs, query, where } from "firebase/firestore";
+  
+  import { getDocs, query } from "firebase/firestore";
   import moment from "moment";
-  import React, { useEffect, useState, useCallback } from "react";
+  import React, { useEffect, useState } from "react";
   import { Link } from "react-router-dom";
   import { useAppSelector } from "../app/hooks";
-  import EditFlyout from "../components/EditFlyout";
   import Header from "../components/Header";
   import useAuth from "../hooks/useAuth";
+  
   import { meetingref } from "../utils/FirebaseConfig";
   import { MeetingType } from "../utils/Types";
   
-  export default function MyMeetings() {
+  export default function Meeting() {
     useAuth();
-    const userInfo = useAppSelector(((zoom360)=>zoom360.auth.userInfo));
+    const userInfo = useAppSelector((zoom360) => zoom360.auth.userInfo);
     const [meetings, setMeetings] = useState<Array<MeetingType>>([]);
-    const [showEditFlyout, setShowEditFlyout] = useState(false);
-    const [editMeeting, setEditMeeting] = useState<MeetingType>();
-    const getMyMeetings = useCallback(async () => {
-      const firestoreQuery = query(
-        meetingref,
-        where("createdBy", "==", userInfo?.uid)
-      );
-      const fetchedMeetings = await getDocs(firestoreQuery);
-      if (fetchedMeetings.docs.length) {
-        const myMeetings: Array<MeetingType> = [];
-        fetchedMeetings.forEach((meeting) => {
-          myMeetings.push({
-            docId: meeting.id,
-            ...(meeting.data() as MeetingType),
-          });
-        });
-        setMeetings(myMeetings);
-      }
-    }, [userInfo?.uid]);
+  
     useEffect(() => {
+      const getMyMeetings = async () => {
+        const firestoreQuery = query(meetingref);
+        const fetchedMeetings = await getDocs(firestoreQuery);
+        if (fetchedMeetings.docs.length) {
+          const myMeetings: Array<MeetingType> = [];
+          fetchedMeetings.forEach((meeting) => {
+            const data = meeting.data() as MeetingType;
+            if (data.createdBy === userInfo?.uid)
+              myMeetings.push(meeting.data() as MeetingType);
+            else if (data.meetingType === "anyone-can-join")
+              myMeetings.push(meeting.data() as MeetingType);
+            else {
+              const index = data.invitedUsers.findIndex(
+                (user: string) => user === userInfo?.uid
+              );
+              if (index !== -1) {
+                myMeetings.push(meeting.data() as MeetingType);
+              }
+            }
+          });
+  
+          setMeetings(myMeetings);
+        }
+      };
       if (userInfo) getMyMeetings();
-    }, [userInfo, getMyMeetings]);
-  
-    const openEditFlyout = (meeting: MeetingType) => {
-      setShowEditFlyout(true);
-      setEditMeeting(meeting);
-    };
-  
-    const closeEditFlyout = (dataChanged = false) => {
-      setShowEditFlyout(false);
-      setEditMeeting(undefined);
-      if (dataChanged) getMyMeetings();
-    };
+    }, [userInfo]);
   
     const meetingColumns = [
       {
@@ -76,6 +72,7 @@ import {
       {
         field: "",
         name: "Status",
+  
         render: (meeting: MeetingType) => {
           if (meeting.status) {
             if (meeting.meetingDate === moment().format("L")) {
@@ -100,29 +97,9 @@ import {
         },
       },
       {
-        field: "",
-        name: "Edit",
-        width: "5%",
-        render: (meeting: MeetingType) => {
-          return (
-            <EuiButtonIcon
-              aria-label="meeting-edit"
-              iconType="indexEdit"
-              color="danger"
-              display="base"
-              isDisabled={
-                moment(meeting.meetingDate).isBefore(moment().format("L")) ||
-                !meeting.status
-              }
-              onClick={() => openEditFlyout(meeting)}
-            />
-          );
-        },
-      },
-      {
         field: "meetingId",
         name: "Copy Link",
-        width: "5%",
+        width: "10%",
         render: (meetingId: string) => {
           return (
             <EuiCopy
@@ -158,9 +135,6 @@ import {
             </EuiPanel>
           </EuiFlexItem>
         </EuiFlexGroup>
-        {showEditFlyout && (
-          <EditFlyout closeFlyout={closeEditFlyout} meeting={editMeeting!} />
-        )}
       </div>
     );
   }

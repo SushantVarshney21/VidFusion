@@ -75,6 +75,7 @@ import {
         invitedUsers: selectedUser.map((user: UserType) => user.uid),
         maxUsers: size,
         meetingDate: startDate.format("L"),
+        meetingTime: startDate.format("LT"),
         status: !status,
       };
       delete editedMeeting.docId;

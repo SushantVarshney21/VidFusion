@@ -11,6 +11,8 @@ import ThemeSelector from "./components/ThemeSelector";
 import { setToasts } from "./app/slices/MeetingSlice";
 import VideoConference from "./pages/VideoConference";
 import MyMeetings from "./pages/MyMeetings";
+import Meeting from "./pages/Meeting";
+import JoinMeeting from "./pages/JoinMeeting";
 
 const App = () => {
   const toasts = useAppSelector((zoom360)=>zoom360.meetings.toasts)
@@ -59,7 +61,9 @@ const App = () => {
           <Route path="/create" element={<CreateMeeting/>} />
           <Route path="/create1on1" element={<OneOnOneMeeting/>} />
           <Route path="/videoconference" element={<VideoConference/>} />
+          <Route path="/meeting" element={<Meeting/>} />
           <Route path="/mymeeting" element={<MyMeetings/>} />
+          <Route path="/join/:id" element={<JoinMeeting/>} />
           <Route path="/" element={<Dashboard />} />
           <Route path="*" element={<Dashboard />} />
         </Routes>

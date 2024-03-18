@@ -30,6 +30,7 @@ export interface MeetingType {
   invitedUsers: Array<string>;
   maxUsers: number;
   meetingDate: string;
+  meetingTime:string;
   meetingId: string;
   meetingName: string;
   meetingType: MeetingJoinType;

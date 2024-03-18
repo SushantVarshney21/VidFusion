@@ -15,6 +15,7 @@ import { meetingref } from '../utils/FirebaseConfig'
 import { useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import usetoast from '../hooks/useToast'
+import MeetingTimeField from '../components/FormComponents/MeetingTimeField'
 
 const OneOnOneMeeting = () => {
     useAuth();
@@ -25,6 +26,8 @@ const OneOnOneMeeting = () => {
     const [meetingName,setMeetingName] = useState("")
     const [selectedUsers, setSelectedUsers] = useState<Array<UserType>>([])
     const [startDate, setStartDate] = useState(moment())
+    const [startTime, setStartTime] =  useState(moment())
+    const [time, setTime]= useState([])
     const [showErrors, setShowErrors] = useState<{
       meetingName:FieldErrorType,
       meetingUser:FieldErrorType
@@ -72,12 +75,13 @@ const OneOnOneMeeting = () => {
           meetingType: "1-on-1",
           invitedUsers: [selectedUsers[0].uid],
           meetingDate: startDate.format("L"),
+          meetingTime:startDate.format("LT"),
           maxUsers: 1,
           status: true,
         });
         createToast({
           title: "One on One Meeting Created Successfully",
-          type: "success",
+          type: "success", 
         });
         navigate("/")
       }
@@ -107,6 +111,7 @@ const OneOnOneMeeting = () => {
                 <MeetingUserField label='Invite User' options={users} onChange={onUserChange} selectedOptions={selectedUsers} singleSelection={{asPlainText:true}} isClearable={false} placeholder='Select a User' isInvalid={showErrors.meetingUser.show}
                 error={showErrors.meetingUser.message} />
                 <MeetingDateField selected={startDate} setStartDate={setStartDate} />
+                {/* <MeetingTimeField selected={startTime} setStartTime={setStartTime} times={setTime}/> */}
                 <EuiSpacer/>
                 <CreateMeetingButtons  createMeeting={createMeeting}  />
             </EuiForm>
