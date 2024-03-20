@@ -1,20 +1,13 @@
-import React,{useEffect} from "react";
-import { useAppSelector } from "../app/hooks";
+import React from "react";
 import useAuth from "../hooks/useAuth";
 import { EuiCard, EuiFlexGroup, EuiFlexItem, EuiImage } from "@elastic/eui";
 import { useNavigate } from "react-router-dom";
 import dashboard1 from "../assets/dashboard1.png";
 import dashboard2 from "../assets/dashboard2.png";
 import dashboard3 from "../assets/dashboard3.png";
-
 import Header from "../components/Header";
-import { useDispatch } from "react-redux";
-import { onAuthStateChanged } from "firebase/auth";
-import { firebaseAuth } from "../utils/FirebaseConfig";
-import { setUser } from "../app/slices/AuthSlice";
 const Dashboard = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   useAuth();
   return (
     <>

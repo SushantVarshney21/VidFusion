@@ -15,7 +15,6 @@ import { meetingref } from '../utils/FirebaseConfig'
 import { useAppSelector } from '../app/hooks'
 import { useNavigate } from 'react-router-dom'
 import usetoast from '../hooks/useToast'
-import MeetingTimeField from '../components/FormComponents/MeetingTimeField'
 
 const OneOnOneMeeting = () => {
     useAuth();
@@ -26,8 +25,6 @@ const OneOnOneMeeting = () => {
     const [meetingName,setMeetingName] = useState("")
     const [selectedUsers, setSelectedUsers] = useState<Array<UserType>>([])
     const [startDate, setStartDate] = useState(moment())
-    const [startTime, setStartTime] =  useState(moment())
-    const [time, setTime]= useState([])
     const [showErrors, setShowErrors] = useState<{
       meetingName:FieldErrorType,
       meetingUser:FieldErrorType

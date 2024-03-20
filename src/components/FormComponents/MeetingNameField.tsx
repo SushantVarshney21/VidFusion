@@ -1,6 +1,5 @@
 import { EuiFieldText, EuiFormRow } from '@elastic/eui'
-import { invalid } from 'moment'
-import React, { useEffect } from 'react'
+import React from 'react'
 const MeetingNameField = ({lable,value,placeholder,setMeetingName, isInvalid,error}:{
     lable:string,value:string,placeholder:string, isInvalid:boolean,error:Array<string>  ,setMeetingName:React.Dispatch<React.SetStateAction<string>>
 }) => {
