@@ -7,12 +7,12 @@ import {collection, getFirestore} from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCjtescmBKMFHfkuDqn3HY1uI23SnN1dw0",
-  authDomain: "video-conference-app-dd66e.firebaseapp.com",
-  projectId: "video-conference-app-dd66e",
-  storageBucket: "video-conference-app-dd66e.appspot.com",
-  messagingSenderId: "53010656510",
-  appId: "1:53010656510:web:dc66122885fc2de6ea89af"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 };
 
 // Initialize Firebase
@@ -22,9 +22,3 @@ export const firebaseDB = getFirestore(app)
 export const userRef = collection(firebaseDB,"users")
 export const meetingref = collection(firebaseDB,"meetings")
 
-// apiKey: process.env.REACT_APP_API_KEY,
-// authDomain: process.env.REACT_APP_AUTH_DOMIN,
-// projectId: process.env.REACT_APP_PROJECT_ID,
-// storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-// messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-// appId: process.env.REACT_APP_APP_ID
