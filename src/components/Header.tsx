@@ -167,7 +167,7 @@ const Header = () => {
         <Link to="/">
           <EuiText>
             <h2 style={{ padding: "0 1vw" }}>
-              <EuiTextColor color="#0b5cff">Zoom360</EuiTextColor>
+              <EuiTextColor style={{fontFamily:"monospace"}} color="#0b5cff">VidFusion</EuiTextColor>
             </h2>
           </EuiText>
         </Link>,
@@ -236,7 +236,7 @@ const Header = () => {
         <Link to="/">
           <EuiText>
             <h2 style={{ padding: "0 1vw" }}>
-              <EuiTextColor color="#0b5cff">Zoom360</EuiTextColor>
+              <EuiTextColor style={{fontSize:"15px"}} color="#0b5cff">VidFusion</EuiTextColor>
             </h2>
           </EuiText>
         </Link>,
@@ -248,8 +248,7 @@ const Header = () => {
           {username ? (
             <EuiText>
               <h3>
-                <EuiTextColor color="white">Hello,</EuiTextColor>
-                <EuiTextColor color="#0b5cff"> {username}</EuiTextColor>
+                <EuiTextColor style={{fontSize:"15px"}} color="#0b5cff"> {username}</EuiTextColor>
               </h3>
             </EuiText>
           ) : null}
@@ -273,6 +272,7 @@ const Header = () => {
                 size="s"
                 color="warning"
                 aria-label="invert-theme-button"
+                style={{width:"20px" }}
               />
             ) : (
               <EuiButtonIcon
@@ -280,7 +280,7 @@ const Header = () => {
                 onClick={invertTheme}
                 display="fill"
                 size="s"
-                style={{ color: "black", backgroundColor: "white" }}
+                style={{ color: "black", backgroundColor: "white", width:"20px" }}
                 aria-label="invert-theme-button"
               />
             )}
@@ -292,6 +292,7 @@ const Header = () => {
               display="fill"
               size="s"
               aria-label="logout-button"
+              style={{width:"25px"}}
             />
           </EuiFlexItem>
         </EuiFlexGroup>,

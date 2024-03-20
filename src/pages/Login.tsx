@@ -1,6 +1,6 @@
 import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiImage, EuiPanel, EuiProvider, EuiSpacer, EuiText, EuiTextColor } from '@elastic/eui'
 import animation from "../assets/animation.gif"
-import logo from '../assets/isolatech (1).png'
+import logo from '../assets/logo.jpg'
 import React from 'react'
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth'
 import { firebaseAuth, userRef } from '../utils/FirebaseConfig'
