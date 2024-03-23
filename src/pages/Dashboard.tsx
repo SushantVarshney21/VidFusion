@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useEffect} from "react";
 import useAuth from "../hooks/useAuth";
 import { EuiCard, EuiFlexGroup, EuiFlexItem, EuiImage } from "@elastic/eui";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +9,12 @@ import Header from "../components/Header";
 const Dashboard = () => {
   const navigate = useNavigate();
   useAuth();
+
+  useEffect(()=>{
+    document.title= "VidFusion - Dashboard"
+  },[])
+  
+
   return (
     <>
     <Header/>

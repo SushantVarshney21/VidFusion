@@ -23,6 +23,10 @@ import {
     useAuth();
     const userInfo = useAppSelector((zoom360) => zoom360.auth.userInfo);
     const [meetings, setMeetings] = useState<Array<MeetingType>>([]);
+
+    useEffect(()=>{
+      document.title= "VidFusion - Meeting"
+    },[])
   
     useEffect(() => {
       const getMyMeetings = async () => {

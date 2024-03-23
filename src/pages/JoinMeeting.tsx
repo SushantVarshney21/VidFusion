@@ -16,6 +16,10 @@ export default function JoinMeeting() {
   const [user, setUser] = useState<any>(undefined);
   const [userLoaded, setUserLoaded] = useState(false);
 
+  useEffect(()=>{
+    document.title= "VidFusion - Join Meeting"
+  },[])
+
   onAuthStateChanged(firebaseAuth, (currentUser) => {
     if (currentUser) {
       setUser(currentUser);

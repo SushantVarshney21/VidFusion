@@ -1,7 +1,7 @@
 import { EuiButton, EuiFlexGroup, EuiFlexItem, EuiImage, EuiPanel, EuiProvider, EuiSpacer, EuiText, EuiTextColor } from '@elastic/eui'
 import animation from "../assets/animation.gif"
 import logo from '../assets/logo.jpg'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from 'firebase/auth'
 import { firebaseAuth, userRef } from '../utils/FirebaseConfig'
 import { addDoc, getDocs, query, where } from 'firebase/firestore'
@@ -12,6 +12,10 @@ import { setUser } from '../app/slices/AuthSlice'
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  useEffect(()=>{
+    document.title= "VidFusion - Login"
+  },[])
 
   onAuthStateChanged(firebaseAuth,(currentUser)=>{
     if(currentUser){

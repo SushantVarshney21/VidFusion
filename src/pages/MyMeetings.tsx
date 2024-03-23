@@ -24,6 +24,11 @@ import {
     const [meetings, setMeetings] = useState<Array<MeetingType>>([]);
     const [showEditFlyout, setShowEditFlyout] = useState(false);
     const [editMeeting, setEditMeeting] = useState<MeetingType>();
+
+    useEffect(()=>{
+      document.title= "VidFusion - My Meeting"
+    },[])
+
     const getMyMeetings = useCallback(async () => {
       const firestoreQuery = query(
         meetingref,

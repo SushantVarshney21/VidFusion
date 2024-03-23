@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import { EuiCard, EuiFlexGroup, EuiFlexItem, EuiImage } from '@elastic/eui'
 import { useNavigate } from 'react-router-dom'
@@ -9,6 +9,9 @@ import useAuth from '../hooks/useAuth';
 const CreateMeeting = () => {
   useAuth()
     const navigate = useNavigate()
+    useEffect(()=>{
+      document.title= "VidFusion - Create Meeting"
+    },[])
   return (
     <div  style={{
         display: "flex",

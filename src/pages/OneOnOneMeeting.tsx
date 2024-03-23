@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
 import { EuiFlexGroup, EuiForm, EuiSpacer } from '@elastic/eui'
 import MeetingNameField from '../components/FormComponents/MeetingNameField'
@@ -87,6 +87,11 @@ const OneOnOneMeeting = () => {
     const onUserChange = (selectedOptions:any)=>{
         setSelectedUsers(selectedOptions)
     }
+
+
+    useEffect(()=>{
+      document.title= "VidFusion - Create 1 on 1"
+    },[])
 
   return (
     <div style={{

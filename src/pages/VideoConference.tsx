@@ -7,7 +7,7 @@ import {
   } from "@elastic/eui";
   import { addDoc } from "firebase/firestore";
   import moment from "moment";
-  import React, { useState } from "react";
+  import React, { useEffect, useState } from "react";
   import { useNavigate } from "react-router-dom";
   import { useAppSelector } from "../app/hooks";
   import CreateMeetingButtons from "../components/FormComponents/CreateMeetingButtons";
@@ -101,6 +101,10 @@ import MeetingUserField from "../components/FormComponents/MeetingUserField";
       }
     };
   
+    useEffect(()=>{
+      document.title= "VidFusion - Video Conference"
+    },[])
+
     return (
       <div
         style={{
