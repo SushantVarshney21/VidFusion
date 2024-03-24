@@ -301,7 +301,7 @@ const Header = () => {
   ];
 
   useEffect(() => {
-    if (window.innerWidth < 480) {
+    if (window.innerWidth < 580) {
       setIsResponsive(true);
     }
   });
