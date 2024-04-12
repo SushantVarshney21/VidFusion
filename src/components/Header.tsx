@@ -25,7 +25,7 @@ const Header = () => {
       text: "Dashboard",
       href: "#",
       onclick: () => {
-        navigate("/");
+        navigate("//");
       },
     },
   ]);
