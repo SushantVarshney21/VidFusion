@@ -40,6 +40,7 @@ const Login = () => {
     dispatch(setUser({uid, name:displayName, email}))
   }
   return (
+    // Loin
     <EuiProvider colorMode='dark'>
       <EuiFlexGroup alignItems='center' justifyContent='center' style={{width:"100vw", height:"100vh"}}>
         <EuiFlexItem grow={false}>
